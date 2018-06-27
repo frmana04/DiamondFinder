@@ -4,7 +4,7 @@ function Character(game,pathImag){
     this.img=new Image();
     this.img.src=pathImag; 
     this.img2=new Image();
-    this.img2.src="/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/maincharacter.png"
+    this.img2.src="images/maincharacter.png"
     this.x=60;
     this.y=60;
     this.sX=5;
@@ -18,7 +18,7 @@ function Character(game,pathImag){
 
 
 Character.prototype.dead=function(){
-    this.img.src="/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/dead.png";
+    this.img.src="images/dead.png";
     this.lifes--;
     if (this.lifes==0) this.game.gameOver();
     else this.isDead=true;

@@ -8,10 +8,10 @@ function Game(canvadId,width,height) {
     this.map=[];
     this.generateMap();
     this.framesCounter=0;
-    this.wall=new Wall(this,"/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/wall.png");
-    this.ground=new Ground(this,"/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/ground.png");
-    this.character=new Character(this,"/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/maincharacter.png");
-    this.noGround=new NoGround (this,"/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/noground.png");
+    this.wall=new Wall(this,"images/wall.png");
+    this.ground=new Ground(this,"images/ground.png");
+    this.character=new Character(this,"images/maincharacter.png");
+    this.noGround=new NoGround (this,"images/noground.png");
     this.lifes=3;
     this.diamondsLeft=3;
     
@@ -41,7 +41,7 @@ function Game(canvadId,width,height) {
     
 
     var img=new Image();
-    img.src="/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/gameover.png";
+    img.src="images/gameover.png";
     this.ctx.drawImage(img,285,125,1200,700);
 
 
@@ -152,7 +152,7 @@ var end = new Date('12/17/2100 9:30 AM');
    
     else if ((this.character.isDead==true)&&(key==13)){
             this.character.isDead=false;
-            this.character.img.src="/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/maincharacter.png";
+            this.character.img.src="images/maincharacter.png";
             this.map[1][1]="C";
             this.map[this.character.y/60][this.character.x/60]="N";
             this.character.x=60;
@@ -224,18 +224,18 @@ Game.prototype.generateMap=function(){
     
 
     
-    this.rocks.push(new Rock (this,"/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/rock.png",120,120));
-    this.rocks.push(new Rock (this,"/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/rock.png",180,180));
-    this.rocks.push(new Rock (this,"/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/rock.png",300,300));
+    this.rocks.push(new Rock (this,"images/rock.png",120,120));
+    this.rocks.push(new Rock (this,"images/rock.png",180,180));
+    this.rocks.push(new Rock (this,"images/rock.png",300,300));
 
     this.map[2][2]="R";
     this.map[3][3]="R";
     this.map[5][5]="R";
     
 
-    this.diamonds.push(new Diamond (this,"/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/diamond.png",360,300));
-    this.diamonds.push(new Diamond (this,"/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/diamond.png",180,600));
-    this.diamonds.push(new Diamond (this,"/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/diamond.png",540,840));
+    this.diamonds.push(new Diamond (this,"images/diamond.png",360,300));
+    this.diamonds.push(new Diamond (this,"images/diamond.png",180,600));
+    this.diamonds.push(new Diamond (this,"images/diamond.png",540,840));
     
     this.map[5][6]="D";
     this.map[10][3]="D";
@@ -308,7 +308,7 @@ for (i=0;i<this.height/SIZE_BLOCK;i++)
 }
 Game.prototype.stageClear= function(){
 
-    this.goal=new Goal (this,"/home/javier/Documentos/ironhack/Project1/diamondsFinder/images/goal.png");
+    this.goal=new Goal (this,"images/goal.png");
     this.map[10][28]="GO";
     
 
