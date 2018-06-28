@@ -5,13 +5,14 @@ function Character(game,pathImag){
     this.img.src=pathImag; 
     this.img2=new Image();
     this.img2.src="images/maincharacter.png"
-    this.x=60;
-    this.y=60;
+    this.x=SIZE_BLOCK;
+    this.y=SIZE_BLOCK;
     this.sX=5;
     this.sY=5;
     this.maxSpeed=5;
     this.lifes=3;
     this.isDead=false;
+    this.typeMovement="NO_MOVE";
     
 }
 
@@ -27,16 +28,42 @@ Character.prototype.dead=function(){
 
 Character.prototype.draw=function(){
 
-    this.game.ctx.drawImage(this.img,this.x,this.y, SIZE_BLOCK,SIZE_BLOCK);
+    
+
+    if ((this.typeMovement=="RIGHT")||(this.typeMovement=="LEFT")){
+
+        if (this.x%60<=SIZE_BLOCK/3)
+         this.game.ctx.drawImage(this.img,0,0,16,16,this.x,this.y, SIZE_BLOCK,SIZE_BLOCK);
+
+        else if ((this.x%60>SIZE_BLOCK/3)&&(this.x%60<=2*SIZE_BLOCK/3))
+         this.game.ctx.drawImage(this.img,16,0,16,16,this.x,this.y, SIZE_BLOCK,SIZE_BLOCK);
+
+         else 
+         this.game.ctx.drawImage(this.img,32,0,16,16,this.x,this.y, SIZE_BLOCK,SIZE_BLOCK);
+    }  
+    else if ((this.typeMovement=="UP")||(this.typeMovement=="DOWN")){
+
+        if (this.y%60<=SIZE_BLOCK/3)
+         this.game.ctx.drawImage(this.img,0,0,16,16,this.x,this.y, SIZE_BLOCK,SIZE_BLOCK);
+
+        else if ((this.y%60>SIZE_BLOCK/3)&&(this.y%60<=2*SIZE_BLOCK/3))
+         this.game.ctx.drawImage(this.img,16,0,16,16,this.x,this.y, SIZE_BLOCK,SIZE_BLOCK);
+
+         else 
+         this.game.ctx.drawImage(this.img,32,0,16,16,this.x,this.y, SIZE_BLOCK,SIZE_BLOCK);
+    }  
+
+   else  this.game.ctx.drawImage(this.img,this.x,this.y,SIZE_BLOCK,SIZE_BLOCK);
 
 }
 
 Character.prototype.move=function(){
 
-    if (this.x%60!=0) this.x+=this.sX;
+    if (this.x%SIZE_BLOCK!=0) this.x+=this.sX;
     else this.sX=0;
 
-    if((this.y%60!=0)) this.y+=this.sY;
+    if((this.y%SIZE_BLOCK!=0)) this.y+=this.sY;
     else this.sY=0;
 
 }
+
