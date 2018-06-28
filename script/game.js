@@ -1,35 +1,29 @@
 function Game(canvadId,width,height) {
+
     this.canvas = document.getElementById(canvadId);
     this.ctx = this.canvas.getContext("2d");
     this.width=width;
     this.height=height;
-    this.rocks=[];
-    this.diamonds=[];
-    this.map=[];
-    this.generateMap();
+    this.lifes=3;
+    this.diamondsLeft=3;
+    this.items=[]; 
+    this.map=[];  
     this.framesCounter=0;
+    this.goal=new Goal (this,"images/goal.png");
     this.wall=new Wall(this,"images/wall.png");
     this.ground=new Ground(this,"images/ground.png");
     this.character=new Character(this,"images/maincharacter.png");
     this.noGround=new NoGround (this,"images/noground.png");
-    this.lifes=3;
-    this.diamondsLeft=3;
-    
-   
+    this.generateMap();
+}
 
-  }
-
-  Game.prototype.clear=function(){
+Game.prototype.clear=function(){
 
     this.ctx.clearRect(0,0,this.width+120,this.height);
-    
-
-  
-  }
+}
 
  
-
-  Game.prototype.setListeners = function() {
+Game.prototype.setListeners = function() {
     document.onkeydown = function(event) {
         this.handleKeyDown(event.keyCode);
       
@@ -47,48 +41,7 @@ function Game(canvadId,width,height) {
 
   }
 
-/*
-Game.prototype.time=function(){
 
-
-
-var end = new Date('12/17/2100 9:30 AM');
-
-    var _second = 1000;
-    var _minute = _second * 60;
-    var _hour = _minute * 60;
-    var _day = _hour * 24;
-    var timer;
-
-    function showRemaining() {
-        var now = new Date();
-        var distance = end - now;
-        if (distance < 0) {
-
-            clearInterval(timer);
-            
-
-            
-        }
-        var days = Math.floor(distance / _day);
-        var hours = Math.floor((distance % _day) / _hour);
-        var minutes = Math.floor((distance % _hour) / _minute);
-        var seconds = Math.floor((distance % _minute) / _second);
-        var text=minute+":"+second;
-        context.fillText(text,900,200,60);
-        
-    }
-
-  
-
-
-
-
-
-
-}
-
-*/
   
   Game.prototype.handleKeyDown = function(key){
     
@@ -162,9 +115,9 @@ var end = new Date('12/17/2100 9:30 AM');
 
 Game.prototype.deleteDiamond=function (x,y){
 
-    for (var i=0;i<this.diamonds.length;i++){
-        if ((this.diamonds[i].x==x)&&(this.diamonds[i].y==y)){
-            this.diamonds.splice(i,1);
+    for (var i=0;i<this.items.length;i++){
+        if ((this.items[i].x==x)&&(this.items[i].y==y)&&(this.items[i].type=="diamond")){
+            this.items.splice(i,1);
 
         }
 
@@ -176,12 +129,9 @@ Game.prototype.moveAll= function(){
 
     this.character.move();
     
-    for (var i=0;i<this.rocks.length;i++)
-    this.rocks[i].move();
+    for (var i=0;i<this.items.length;i++)
+    this.items[i].move();
 
-    for (var i=0;i<this.diamonds.length;i++)
-
-    this.diamonds[i].move();
     
 
  
@@ -223,23 +173,27 @@ Game.prototype.generateMap=function(){
         
     
 
+        this.items.push(new Item (this,"images/diamond.png",360,300,"diamond"));
+        this.items.push(new Item (this,"images/diamond.png",180,600,"diamond"));
+        this.items.push(new Item (this,"images/diamond.png",540,840,"diamond"));
+        
+        this.map[5][6]="D";
+        this.map[10][3]="D";
+        this.map[14][9]="D";
+
+
+
     
-    this.rocks.push(new Rock (this,"images/rock.png",120,120));
-    this.rocks.push(new Rock (this,"images/rock.png",180,180));
-    this.rocks.push(new Rock (this,"images/rock.png",300,300));
+    this.items.push(new Item (this,"images/rock.png",120,120,"rock"));
+    this.items.push(new Item (this,"images/rock.png",180,180,"rock"));
+    this.items.push(new Item (this,"images/rock.png",300,300,"rock"));
 
     this.map[2][2]="R";
     this.map[3][3]="R";
     this.map[5][5]="R";
     
 
-    this.diamonds.push(new Diamond (this,"images/diamond.png",360,300));
-    this.diamonds.push(new Diamond (this,"images/diamond.png",180,600));
-    this.diamonds.push(new Diamond (this,"images/diamond.png",540,840));
     
-    this.map[5][6]="D";
-    this.map[10][3]="D";
-    this.map[14][9]="D";
 
 
 
@@ -255,8 +209,9 @@ Game.prototype.drawInformation=function(){
     for (var i=1; i<=this.character.lifes;i++)
         this.ctx.drawImage(this.character.img2,1750,50+60*i, SIZE_BLOCK,SIZE_BLOCK);
 
+
     for (var i=1; i<=this.diamondsLeft;i++)
-        this.ctx.drawImage(this.diamonds[0].img,1750,300+40*i, 40,40);
+        this.ctx.drawImage(this.items[0].img,1750,300+40*i, 40,40);
 
 
 }
@@ -297,19 +252,22 @@ for (i=0;i<this.height/SIZE_BLOCK;i++)
 
     }
     
-    for (k=0;k<this.rocks.length;k++)
-    this.rocks[k].draw();
+    for (k=0;k<this.items.length;k++)
+    this.items[k].draw();
 
-    for (k=0;k<this.diamonds.length;k++)
-    this.diamonds[k].draw();
-
+   
     
    
 }
 Game.prototype.stageClear= function(){
 
-    this.goal=new Goal (this,"images/goal.png");
+   
     this.map[10][28]="GO";
+    
+    if ((this.character.x==28*60)&&(this.character.y==10*60)){
+    var img=new Image();
+    img.src="images/stageclear.png";
+    this.ctx.drawImage(img,285,125,1200,700);}
     
 
 }

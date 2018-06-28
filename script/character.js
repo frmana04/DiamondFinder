@@ -13,11 +13,11 @@ function Character(game,pathImag){
     this.lifes=3;
     this.isDead=false;
     
-
 }
 
 
 Character.prototype.dead=function(){
+
     this.img.src="images/dead.png";
     this.lifes--;
     if (this.lifes==0) this.game.gameOver();
@@ -27,25 +27,16 @@ Character.prototype.dead=function(){
 
 Character.prototype.draw=function(){
 
-
-   
-    
-                this.game.ctx.drawImage(this.img,this.x,this.y, SIZE_BLOCK,SIZE_BLOCK);
-
-
-    
-
+    this.game.ctx.drawImage(this.img,this.x,this.y, SIZE_BLOCK,SIZE_BLOCK);
 
 }
 
 Character.prototype.move=function(){
 
-if (this.x%60!=0)
-    this.x+=this.sX;
+    if (this.x%60!=0) this.x+=this.sX;
     else this.sX=0;
 
-if((this.y%60!=0))
-    this.y+=this.sY;
+    if((this.y%60!=0)) this.y+=this.sY;
     else this.sY=0;
 
 }
