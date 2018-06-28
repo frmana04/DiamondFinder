@@ -14,6 +14,7 @@ function Game(canvadId,width,height) {
     this.ground=new Ground(this,"images/ground.png");
     this.character=new Character(this,"images/maincharacter.png");
     this.noGround=new NoGround (this,"images/noground.png");
+    this.enemy=new Enemy (this,"images/enemy.png");
     this.generateMap();
 }
 
@@ -93,9 +94,6 @@ Game.prototype.keyRight=function(){
 }
 
 
-
-
-
 Game.prototype.keyLeft=function(){
 
 
@@ -141,7 +139,6 @@ Game.prototype.keySpace=function(){
                 this.items[i].x-=60;
         }
     
-
     }
 
 }
@@ -195,6 +192,7 @@ Game.prototype.deleteDiamond=function (x,y){
 Game.prototype.moveAll= function(){
 
     this.character.move();
+    this.enemy.move();
     for (var i=0;i<this.items.length;i++)
          this.items[i].move();
 }
@@ -227,6 +225,21 @@ Game.prototype.generateGround=function(){
 Game.prototype.generateCharacter=function(){
 
     this.map[1][1]=CHARACTER_CELL;
+
+}
+
+
+Game.prototype.generateEnemy=function(){
+
+    this.map[10][25]=ENEMY_CELL;
+    this.map[11][25]=NO_GROUND_CELL;
+    this.map[12][25]=NO_GROUND_CELL;
+    this.enemy.x=1500;
+    this.enemy.y=600;
+
+
+
+
 
 }
 
@@ -292,6 +305,7 @@ Game.prototype.generateMap=function(){
    this.generateCharacter();
    this.generateDiamonds();
    this.generateRocks();
+   this.generateEnemy();
 
 }
 
@@ -317,7 +331,6 @@ Game.prototype.drawAll= function(){
         
             this.noGround.draw(j*SIZE_BLOCK,i*SIZE_BLOCK);
            
-
             switch (this.map[i][j]){
             
                 case WALL_CELL:this.wall.draw(j*SIZE_BLOCK,i*SIZE_BLOCK);break;
@@ -328,6 +341,7 @@ Game.prototype.drawAll= function(){
     for (k=0;k<this.items.length;k++)
     this.items[k].draw();    
     this.character.draw();
+    this.enemy.draw();
 }
 
 
@@ -379,6 +393,7 @@ const CHARACTER_CELL="C";
 const GOAL_CELL="GO";
 const ROCK_CELL="R";
 const NO_GROUND_CELL="N";
+const ENEMY_CELL="E";
 
 ////////////////////////////////////////////////////////////////////////////
 
