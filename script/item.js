@@ -20,7 +20,8 @@ Item.prototype.move=function(){
 
     if(this.y%SIZE_BLOCK==0){
         
-        if (this.game.map[this.y/60+1][this.x/60]==ENEMY_CELL)
+        
+        if ((this.game.map[this.y/60+1][this.x/60]==ENEMY_CELL))
            { this.game.enemy.dead();}
      
         else {

@@ -105,9 +105,9 @@ Enemy.prototype.dead=function(){
     this.isDead=true;
 
     
-    this.game.map[(this.y-this.y%60)/60][this.x/60]=DIAMOND_CELL;
-    this.game.items.push(new Item (this.game,"images/diamond.png",this.x,this.y-this.y%60,DIAMOND_CELL));
+    this.game.map[(this.y-this.y%60)/60][(this.x-this.x%60)/60]=DIAMOND_CELL;
+    this.game.items.push(new Item (this.game,"images/diamond.png",this.x-this.x%60,this.y-this.y%60,DIAMOND_CELL));
     
     this.game.drawAll();
-    
+   
 }

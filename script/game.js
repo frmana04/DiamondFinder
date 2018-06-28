@@ -318,11 +318,14 @@ Game.prototype.drawInformation=function(){
         this.ctx.drawImage(this.character.img2,1750,50+SIZE_BLOCK*i, SIZE_BLOCK,SIZE_BLOCK);
 
 
-    for (var i=1; i<this.items.length;i++)
+    for (var i=0; i<this.items.length;i++)
         if (this.items[i].type==DIAMOND_CELL) this.ctx.drawImage(this.items[i].img,1750,300+40*i, 40,40);
 
-        this.ctx.font = "bold 22px sans-serif blue";
-        this.ctx.fillText(this.seconds,1750,100);
+        this.ctx.font = "40px Comic Sans MS";
+        this.ctx.fillStyle = "red";
+        this.ctx.textAlign = "center";
+        if (this.character.isDead==false)
+        this.ctx.fillText(100-this.seconds, 1800, 80); 
 }
 
 
@@ -378,7 +381,7 @@ Game.prototype.start= function(){
     
         this.setListeners();
 
-        if (this.character.lifes==0) this.gameOver();
+        if ((this.character.lifes==0)||(this.seconds>=100)) this.gameOver();
         else this.drawAll();
 
         if (this.diamondsLeft<=0) this.stageClear();     
