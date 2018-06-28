@@ -5,7 +5,7 @@ function Game(canvadId,width,height) {
     this.width=width;
     this.height=height;
     this.lifes=3;
-    this.diamondsLeft=3;
+    this.diamondsLeft=9;
     this.items=[]; 
     this.map=[];  
     this.framesCounter=0;
@@ -16,6 +16,8 @@ function Game(canvadId,width,height) {
     this.noGround=new NoGround (this,"images/noground.png");
     this.enemy=new Enemy (this,"images/enemy.png");
     this.generateMap();
+    this.timer=0;
+    this.seconds=0;
 }
 
 Game.prototype.clear=function(){
@@ -262,7 +264,7 @@ Game.prototype.generateDiamonds=function(){
     this.items.push(new Item (this,"images/diamond.png",10*SIZE_BLOCK,8*SIZE_BLOCK,DIAMOND_CELL));
     this.items.push(new Item (this,"images/diamond.png",20*SIZE_BLOCK,12*SIZE_BLOCK,DIAMOND_CELL));
     this.items.push(new Item (this,"images/diamond.png",1*SIZE_BLOCK,8*SIZE_BLOCK,DIAMOND_CELL));
-    this.diamondsLeft=8;
+    this.diamondsLeft=9;
     
 
 }
@@ -277,7 +279,7 @@ Game.prototype.generateRocks=function(){
     this.map[7][8]=ROCK_CELL;
     this.map[7][9]=ROCK_CELL;
     this.map[7][10]=ROCK_CELL;
-    this.map[6][11]=ROCK_CELL;
+    this.map[1][25]=ROCK_CELL;
 
    
     this.items.push(new Item (this,"images/rock.png",2*SIZE_BLOCK,2*SIZE_BLOCK,ROCK_CELL));
@@ -288,7 +290,7 @@ Game.prototype.generateRocks=function(){
     this.items.push(new Item (this,"images/rock.png",8*SIZE_BLOCK,7*SIZE_BLOCK,ROCK_CELL));
     this.items.push(new Item (this,"images/rock.png",9*SIZE_BLOCK,7*SIZE_BLOCK,ROCK_CELL));
     this.items.push(new Item (this,"images/rock.png",10*SIZE_BLOCK,7*SIZE_BLOCK,ROCK_CELL));
-    this.items.push(new Item (this,"images/rock.png",11*SIZE_BLOCK,6*SIZE_BLOCK,ROCK_CELL));
+    this.items.push(new Item (this,"images/rock.png",25*SIZE_BLOCK,1*SIZE_BLOCK,ROCK_CELL));
 
     
 
@@ -316,9 +318,11 @@ Game.prototype.drawInformation=function(){
         this.ctx.drawImage(this.character.img2,1750,50+SIZE_BLOCK*i, SIZE_BLOCK,SIZE_BLOCK);
 
 
-    for (var i=1; i<=this.diamondsLeft;i++)
-        this.ctx.drawImage(this.items[0].img,1750,300+40*i, 40,40);
+    for (var i=1; i<this.items.length;i++)
+        if (this.items[i].type==DIAMOND_CELL) this.ctx.drawImage(this.items[i].img,1750,300+40*i, 40,40);
 
+        this.ctx.font = "bold 22px sans-serif blue";
+        this.ctx.fillText(this.seconds,1750,100);
 }
 
 
@@ -341,6 +345,8 @@ Game.prototype.drawAll= function(){
     for (k=0;k<this.items.length;k++)
     this.items[k].draw();    
     this.character.draw();
+    
+    if (this.enemy.isDead==false)
     this.enemy.draw();
 }
 
@@ -360,6 +366,10 @@ Game.prototype.start= function(){
    
    this.interval = setInterval(function() {
 
+    this.timer++;
+    if (this.timer%80==0)
+        this.seconds++;
+        
         if (this.character.isDead==false){
         
             this.clear();
@@ -371,7 +381,7 @@ Game.prototype.start= function(){
         if (this.character.lifes==0) this.gameOver();
         else this.drawAll();
 
-        if (this.diamondsLeft==0) this.stageClear();     
+        if (this.diamondsLeft<=0) this.stageClear();     
   }.bind(this), 1000/80);
 
 }
