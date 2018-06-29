@@ -5,7 +5,7 @@ function Game(canvadId,width,height) {
     this.width=width;
     this.height=height;
    
-    this.diamondsLeft=9;
+    this.diamondsLeft=18;
     this.items=[]; 
     this.map=[];  
     this.framesCounter=0;
@@ -59,7 +59,7 @@ Game.prototype.playSound=function(sound){
 
 
 
-}
+}   
 
 
 Game.prototype.gameOver=function(){
@@ -295,6 +295,16 @@ Game.prototype.generateDiamonds=function(){
     this.map[8][10]=DIAMOND_CELL;
     this.map[12][20]=DIAMOND_CELL;
     this.map[8][1]=DIAMOND_CELL;
+    this.map[1][20]=DIAMOND_CELL;
+    this.map[1][21]=DIAMOND_CELL;
+    this.map[1][22]=DIAMOND_CELL;
+    this.map[2][20]=DIAMOND_CELL;
+    this.map[2][21]=DIAMOND_CELL;
+    this.map[2][22]=DIAMOND_CELL;
+    this.map[3][20]=DIAMOND_CELL;
+    this.map[3][21]=DIAMOND_CELL;
+    this.map[3][22]=DIAMOND_CELL;
+
 
     this.items.push(new Item (this,"images/diamond.png",6*SIZE_BLOCK,5*SIZE_BLOCK,DIAMOND_CELL));
     this.items.push(new Item (this,"images/diamond.png",3*SIZE_BLOCK,10*SIZE_BLOCK,DIAMOND_CELL));
@@ -304,7 +314,19 @@ Game.prototype.generateDiamonds=function(){
     this.items.push(new Item (this,"images/diamond.png",10*SIZE_BLOCK,8*SIZE_BLOCK,DIAMOND_CELL));
     this.items.push(new Item (this,"images/diamond.png",20*SIZE_BLOCK,12*SIZE_BLOCK,DIAMOND_CELL));
     this.items.push(new Item (this,"images/diamond.png",1*SIZE_BLOCK,8*SIZE_BLOCK,DIAMOND_CELL));
-    this.diamondsLeft=9;
+    this.items.push(new Item (this,"images/diamond.png",20*SIZE_BLOCK,1*SIZE_BLOCK,DIAMOND_CELL));
+    this.items.push(new Item (this,"images/diamond.png",21*SIZE_BLOCK,1*SIZE_BLOCK,DIAMOND_CELL));
+    this.items.push(new Item (this,"images/diamond.png",22*SIZE_BLOCK,1*SIZE_BLOCK,DIAMOND_CELL));
+    this.items.push(new Item (this,"images/diamond.png",20*SIZE_BLOCK,2*SIZE_BLOCK,DIAMOND_CELL));
+    this.items.push(new Item (this,"images/diamond.png",21*SIZE_BLOCK,2*SIZE_BLOCK,DIAMOND_CELL));
+    this.items.push(new Item (this,"images/diamond.png",22*SIZE_BLOCK,2*SIZE_BLOCK,DIAMOND_CELL));
+    this.items.push(new Item (this,"images/diamond.png",20*SIZE_BLOCK,3*SIZE_BLOCK,DIAMOND_CELL));
+    this.items.push(new Item (this,"images/diamond.png",21*SIZE_BLOCK,3*SIZE_BLOCK,DIAMOND_CELL));
+    this.items.push(new Item (this,"images/diamond.png",22*SIZE_BLOCK,3*SIZE_BLOCK,DIAMOND_CELL));
+
+
+
+    this.diamondsLeft=18;
     
 
 }
@@ -319,7 +341,9 @@ Game.prototype.generateRocks=function(){
     this.map[7][8]=ROCK_CELL;
     this.map[7][9]=ROCK_CELL;
     this.map[7][10]=ROCK_CELL;
-    this.map[1][25]=ROCK_CELL;
+    this.map[1][24]=ROCK_CELL;
+    
+
 
    
     this.items.push(new Item (this,"images/rock.png",2*SIZE_BLOCK,2*SIZE_BLOCK,ROCK_CELL));
@@ -330,7 +354,7 @@ Game.prototype.generateRocks=function(){
     this.items.push(new Item (this,"images/rock.png",8*SIZE_BLOCK,7*SIZE_BLOCK,ROCK_CELL));
     this.items.push(new Item (this,"images/rock.png",9*SIZE_BLOCK,7*SIZE_BLOCK,ROCK_CELL));
     this.items.push(new Item (this,"images/rock.png",10*SIZE_BLOCK,7*SIZE_BLOCK,ROCK_CELL));
-    this.items.push(new Item (this,"images/rock.png",25*SIZE_BLOCK,1*SIZE_BLOCK,ROCK_CELL));
+    this.items.push(new Item (this,"images/rock.png",24*SIZE_BLOCK,1*SIZE_BLOCK,ROCK_CELL));
 
     
 
@@ -355,17 +379,17 @@ Game.prototype.generateMap=function(){
 Game.prototype.drawInformation=function(){
 
     for (var i=1; i<=this.character.lifes;i++)
-        this.ctx.drawImage(this.character.img2,1750,50+SIZE_BLOCK*i, SIZE_BLOCK,SIZE_BLOCK);
+        this.ctx.drawImage(this.character.img2,1750,5+SIZE_BLOCK*i, SIZE_BLOCK,SIZE_BLOCK);
 
 
     for (var i=0; i<this.items.length;i++)
-        if (this.items[i].type==DIAMOND_CELL) this.ctx.drawImage(this.items[i].img,1750,300+40*i, 40,40);
+        if (this.items[i].type==DIAMOND_CELL) this.ctx.drawImage(this.items[i].img,1750,250+40*i, 40,40);
 
         this.ctx.font = "40px Comic Sans MS";
         this.ctx.fillStyle = "red";
         this.ctx.textAlign = "center";
         if (this.character.isDead==false)
-        this.ctx.fillText(100-this.seconds, 1800, 80); 
+        this.ctx.fillText(100-this.seconds, 1800, 50); 
 }
 
 
