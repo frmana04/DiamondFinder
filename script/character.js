@@ -21,7 +21,7 @@ Character.prototype.dead=function(){
 
     this.img.src="images/dead.png";
     this.lifes--;
-    if (this.lifes==0) this.game.gameOver();
+    if (this.lifes<=0) this.game.gameOver();
     else this.isDead=true;
 }
 

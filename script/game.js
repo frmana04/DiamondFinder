@@ -4,7 +4,7 @@ function Game(canvadId,width,height) {
     this.ctx = this.canvas.getContext("2d");
     this.width=width;
     this.height=height;
-    this.lifes=3;
+   
     this.diamondsLeft=9;
     this.items=[]; 
     this.map=[];  
@@ -381,7 +381,7 @@ Game.prototype.start= function(){
     
         this.setListeners();
 
-        if ((this.character.lifes==0)||(this.seconds>=100)) this.gameOver();
+        if ((this.character.lifes<=0)||(this.seconds>=100)) this.gameOver();
         else this.drawAll();
 
         if (this.diamondsLeft<=0) this.stageClear();     

@@ -24,7 +24,11 @@ Enemy.prototype.move=function(){
 
 
     if (this.isDead==false){
-    this.game.map[10][25]="N";
+   
+        if (((this.x==this.game.character.x)&&(Math.abs(this.y-this.game.character.y)<=SIZE_BLOCK))||
+        ((this.y==this.game.character.y)&&(Math.abs(this.x-this.game.character.x)<=SIZE_BLOCK)))
+            {this.game.map[(this.y-this.y%60)/60][(this.x-this.x%60)/60]=ENEMY_CELL;  this.game.character.dead(); }
+
     switch (this.typeMovement){
 
       case "UP":
