@@ -342,8 +342,17 @@ Game.prototype.generateRocks=function(){
     this.map[7][9]=ROCK_CELL;
     this.map[7][10]=ROCK_CELL;
     this.map[1][24]=ROCK_CELL;
+    this.map[5][10]=ROCK_CELL;
+    this.map[3][18]=ROCK_CELL;
+    this.map[12][10]=ROCK_CELL;
+    this.map[6][7]=ROCK_CELL;
+    this.map[14][14]=ROCK_CELL;
+    this.map[10][22]=ROCK_CELL;
+    this.map[8][23]=ROCK_CELL;
+    this.map[12][26]=ROCK_CELL;
+    this.map[6][22]=ROCK_CELL;
+    this.map[14][19]=ROCK_CELL;
     
-
 
    
     this.items.push(new Item (this,"images/rock.png",2*SIZE_BLOCK,2*SIZE_BLOCK,ROCK_CELL));
@@ -355,6 +364,19 @@ Game.prototype.generateRocks=function(){
     this.items.push(new Item (this,"images/rock.png",9*SIZE_BLOCK,7*SIZE_BLOCK,ROCK_CELL));
     this.items.push(new Item (this,"images/rock.png",10*SIZE_BLOCK,7*SIZE_BLOCK,ROCK_CELL));
     this.items.push(new Item (this,"images/rock.png",24*SIZE_BLOCK,1*SIZE_BLOCK,ROCK_CELL));
+    this.items.push(new Item (this,"images/rock.png",10*SIZE_BLOCK,5*SIZE_BLOCK,ROCK_CELL));
+    this.items.push(new Item (this,"images/rock.png",18*SIZE_BLOCK,3*SIZE_BLOCK,ROCK_CELL));
+    this.items.push(new Item (this,"images/rock.png",10*SIZE_BLOCK,12*SIZE_BLOCK,ROCK_CELL));
+    this.items.push(new Item (this,"images/rock.png",7*SIZE_BLOCK,6*SIZE_BLOCK,ROCK_CELL));
+    this.items.push(new Item (this,"images/rock.png",14*SIZE_BLOCK,14*SIZE_BLOCK,ROCK_CELL));
+    this.items.push(new Item (this,"images/rock.png",22*SIZE_BLOCK,10*SIZE_BLOCK,ROCK_CELL));
+    this.items.push(new Item (this,"images/rock.png",23*SIZE_BLOCK,8*SIZE_BLOCK,ROCK_CELL));
+    this.items.push(new Item (this,"images/rock.png",26*SIZE_BLOCK,12*SIZE_BLOCK,ROCK_CELL));
+    this.items.push(new Item (this,"images/rock.png",22*SIZE_BLOCK,6*SIZE_BLOCK,ROCK_CELL));
+    this.items.push(new Item (this,"images/rock.png",19*SIZE_BLOCK,14*SIZE_BLOCK,ROCK_CELL));
+
+
+
 
     
 
