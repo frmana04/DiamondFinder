@@ -21,8 +21,11 @@ Item.prototype.move=function(){
     if(this.y%SIZE_BLOCK==0){
         
         
-        if ((this.game.map[this.y/60+1][this.x/60]==ENEMY_CELL))
-           { this.game.enemy.dead();}
+        if ((this.game.map[this.y/60+1][this.x/60]==ENEMY_CELL)){
+                
+           
+            this.game.enemy.dead();
+        }
      
         else {
         if ((this.game.map[this.y/SIZE_BLOCK+1][this.x/SIZE_BLOCK]==NO_GROUND_CELL)&&(this.game.character.x%SIZE_BLOCK==0)&&(this.game.character.y%SIZE_BLOCK==0)){ //Si se acaba de quitar tierra bajo la roca
@@ -36,6 +39,7 @@ Item.prototype.move=function(){
 
             this.game.map[this.y/SIZE_BLOCK][this.x/SIZE_BLOCK]=NO_GROUND_CELL;
             this.y+=3;
+            this.game.sounds[1].play(); 
 
         }
         
@@ -43,7 +47,8 @@ Item.prototype.move=function(){
     }
     else if ((this.y%SIZE_BLOCK)!=0){
 
-        this.y+=3
+        this.y+=3;
+        this.game.sounds[1].play(); 
         if ((this.y+SIZE_BLOCK==this.game.character.y)&&(this.x==this.game.character.x))
                 this.game.character.dead();
        

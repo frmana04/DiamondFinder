@@ -18,6 +18,8 @@ function Game(canvadId,width,height) {
     this.generateMap();
     this.timer=0;
     this.seconds=0;
+    this.sounds=[]; //0:Diamond  1:FallItem  2:Ground  3:GameOver  4:StagueClear  5:MainTheme  6:DeadEnemy  7:DeadCharacter
+    this.generateSounds();
 }
 
 Game.prototype.clear=function(){
@@ -35,11 +37,38 @@ Game.prototype.setListeners = function() {
     }.bind(this);
 }
 
+Game.prototype.generateSounds=function(){
+
+
+
+    this.sounds.push(new Audio("sounds/diamond.mp3"));
+    this.sounds.push(new Audio("sounds/fallitem.mp3"));
+    this.sounds.push(new Audio("sounds/ground.mp3"));
+    this.sounds.push(new Audio("sounds/gameover.mp3"));
+    this.sounds.push(new Audio("sounds/stagueclear.mp3"));
+    this.sounds.push(new Audio("sounds/maintheme.mp3"));
+    this.sounds.push(new Audio("sounds/deadenemy.mp3"));
+    this.sounds.push(new Audio("sounds/deadcharacter.mp3"));
+    
+    
+
+
+}
+
+Game.prototype.playSound=function(sound){
+
+
+
+}
+
+
 Game.prototype.gameOver=function(){
 
     var img=new Image();
     img.src="images/gameover.png";
     this.ctx.drawImage(img,285,125,1200,700);
+    this.sounds[3].play(); 
+
 }
 
 
@@ -52,7 +81,9 @@ Game.prototype.keyUp=function(){
     if((this.map[this.character.y/SIZE_BLOCK-1][this.character.x/SIZE_BLOCK]!=WALL_CELL)&&(this.map[this.character.y/SIZE_BLOCK-1][this.character.x/SIZE_BLOCK]!=ROCK_CELL)){
 
         if (this.map[this.character.y/SIZE_BLOCK-1][this.character.x/SIZE_BLOCK]==DIAMOND_CELL) {
-            this.diamondsLeft--;this.deleteDiamond(this.character.x,this.character.y-SIZE_BLOCK);
+            this.diamondsLeft--;
+            this.deleteDiamond(this.character.x,this.character.y-SIZE_BLOCK);
+            this.sounds[0].play(); 
         }     
         this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK]=NO_GROUND_CELL; 
         this.map[this.character.y/SIZE_BLOCK-1][this.character.x/SIZE_BLOCK]=CHARACTER_CELL;
@@ -68,7 +99,11 @@ Game.prototype.keyDown=function(){
     this.character.img.src="images/movedown.png";
     this.character.typeMovement="DOWN";
     if((this.map[this.character.y/SIZE_BLOCK+1][this.character.x/SIZE_BLOCK]!=WALL_CELL)&&(this.map[this.character.y/SIZE_BLOCK+1][this.character.x/SIZE_BLOCK]!=ROCK_CELL)){
-        if (this.map[this.character.y/SIZE_BLOCK+1][this.character.x/SIZE_BLOCK]==DIAMOND_CELL) {this.diamondsLeft--; this.deleteDiamond(this.character.x,this.character.y+SIZE_BLOCK);}
+        if (this.map[this.character.y/SIZE_BLOCK+1][this.character.x/SIZE_BLOCK]==DIAMOND_CELL) {
+            this.diamondsLeft--; 
+            this.deleteDiamond(this.character.x,this.character.y+SIZE_BLOCK);
+            this.sounds[0].play(); 
+        }
       this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK]=NO_GROUND_CELL; 
       
       this.map[this.character.y/SIZE_BLOCK+1][this.character.x/SIZE_BLOCK]=CHARACTER_CELL;
@@ -85,7 +120,11 @@ Game.prototype.keyRight=function(){
     this.character.img.src="images/moveright.png"
        this.character.typeMovement="RIGHT";
     if((this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK+1]!=WALL_CELL)&&(this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK+1]!=ROCK_CELL)){
-        if (this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK+1]==DIAMOND_CELL) {this.diamondsLeft--;this.deleteDiamond(this.character.x+SIZE_BLOCK,this.character.y);}
+        if (this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK+1]==DIAMOND_CELL) {
+            this.diamondsLeft--;
+            this.deleteDiamond(this.character.x+SIZE_BLOCK,this.character.y);
+            this.sounds[0].play(); 
+        }
       this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK]=NO_GROUND_CELL; 
        this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK+1]=CHARACTER_CELL;
        this.character.sX =this.character.maxSpeed;
@@ -102,7 +141,12 @@ Game.prototype.keyLeft=function(){
     this.character.img.src="images/moveleft.png";
        this.character.typeMovement="LEFT";
     if((this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK-1]!=WALL_CELL)&&(this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK-1]!=ROCK_CELL)){
-        if (this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK-1]==DIAMOND_CELL) {this.diamondsLeft--; this.deleteDiamond(this.character.x-SIZE_BLOCK,this.character.y);}
+        if (this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK-1]==DIAMOND_CELL) {
+            this.diamondsLeft--; 
+            this.deleteDiamond(this.character.x-SIZE_BLOCK,this.character.y);
+            this.sounds[0].play(); 
+        
+        }
       this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK]=NO_GROUND_CELL; 
        this.map[this.character.y/SIZE_BLOCK][this.character.x/SIZE_BLOCK-1]=CHARACTER_CELL;
        this.character.sX =-this.character.maxSpeed; 
@@ -239,10 +283,6 @@ Game.prototype.generateEnemy=function(){
     this.enemy.x=1500;
     this.enemy.y=600;
 
-
-
-
-
 }
 
 Game.prototype.generateDiamonds=function(){
@@ -362,11 +402,15 @@ Game.prototype.stageClear= function(){
         var img=new Image();
         img.src="images/stageclear.png";
         this.ctx.drawImage(img,285,125,1200,700);
+        this.sounds[4].play(); 
+
     }   
 }
 
 Game.prototype.start= function(){
+    
    
+    this.sounds[5].play(); 
    this.interval = setInterval(function() {
 
     this.timer++;
@@ -378,7 +422,8 @@ Game.prototype.start= function(){
             this.clear();
             this.moveAll();
         }
-    
+        
+       
         this.setListeners();
 
         if ((this.character.lifes<=0)||(this.seconds>=100)) this.gameOver();

@@ -1,10 +1,10 @@
-function Enemy(game,pathImag){
+function Enemy(game,pathImag,x,y){
 
     this.game=game;
     this.img=new Image();
     this.img.src=pathImag; 
-    this.x=SIZE_BLOCK;
-    this.y=SIZE_BLOCK;
+    this.x=x;
+    this.y=y;
     this.sX=5;
     this.sY=5;
     this.maxSpeed=5;
@@ -108,7 +108,7 @@ Enemy.prototype.dead=function(){
 
     this.isDead=true;
 
-    
+    this.game.sounds[6].play(); 
     this.game.map[(this.y-this.y%60)/60][(this.x-this.x%60)/60]=DIAMOND_CELL;
     this.game.items.push(new Item (this.game,"images/diamond.png",this.x-this.x%60,this.y-this.y%60,DIAMOND_CELL));
     

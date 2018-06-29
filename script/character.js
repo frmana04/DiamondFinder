@@ -19,6 +19,7 @@ function Character(game,pathImag){
 
 Character.prototype.dead=function(){
 
+    this.game.sounds[7].play(); 
     this.img.src="images/dead.png";
     this.lifes--;
     if (this.lifes<=0) this.game.gameOver();
